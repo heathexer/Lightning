@@ -1,7 +1,15 @@
-int length = 3;
-int variance = 1;
+int length = 20;
+int variance = 5;
+boolean drawing;
+
+Bolt eastBolt = new Bolt(0, length, -variance, variance);
 Bolt westBolt = new Bolt(-length, 0, -variance, variance);
-Bolt northBolt = new Bolt(-variance, variance, 0, length);
+Bolt northBolt = new Bolt(-variance, variance, -length, 0);
+Bolt southBolt = new Bolt(-variance, variance, 0, length);
+Bolt northWestBolt = new Bolt(-length, 0, -length, 0);
+Bolt northEastBolt = new Bolt(0, length, -length, 0);
+Bolt southWestBolt = new Bolt(-length, 0, 0, length);
+Bolt southEastBolt = new Bolt(0, length, 0, length);
 
 void setup() {
   size(300,300);
@@ -10,7 +18,7 @@ void setup() {
 }
 
 void draw() {
-	if(mousePressed) {
+	if(drawing) {
 		lightning();
 	} else {
 		background(255);
@@ -18,31 +26,57 @@ void draw() {
 }
 
 void lightning() {
+	eastBolt.draw();
 	westBolt.draw();
 	northBolt.draw();
+	southBolt.draw();
+	northWestBolt.draw();
+	northEastBolt.draw();
+	southWestBolt.draw();
+	southEastBolt.draw();
+}
+
+void mousePressed() {
+	eastBolt.update();
+	westBolt.update();
+	northBolt.update();
+	southBolt.update();
+	northWestBolt.update();
+	northEastBolt.update();
+	southWestBolt.update();
+	southEastBolt.update();
+	drawing = true;
 }
 
 class Bolt {
-	double minX;
-	double minY;
-	double maxX;
-	double maxY;
+	int minX;
+	int minY;
+	int maxX;
+	int maxY;
 
-	double newX;
-	double newY;
-	double oldX = mouseX;
-	double oldY = mouseY;
+	int newX;
+	int newY;
+	int oldX;
+	int oldY;
 	Bolt(int minX, int maxX, int minY, int maxY) {
 		this.minX = minX;
 		this.minY = minY;
 		this.maxX = maxX;
 		this.maxY = maxY;
 	}
+	void update() {
+		this.oldX = mouseX;
+		this.oldY = mouseY;
+	}
 	void draw() {
-		newX = oldX + (Math.random()*(this.maxX-this.minX)+this.minX);
-		newY = oldY + (Math.random()*(this.maxY-this.minY)+this.minY);
-		line((float)(oldX), (float)(oldY), (float)(newX), (float)(newY));
-		oldX = newX;
-		oldY = newY;
+		if(!(oldX<0) && !(oldX>300) && !(oldY<0) && !(oldY>300)) {
+			newX = oldX + (int)((Math.random()*(this.maxX-this.minX)+this.minX));
+			newY = oldY + (int)((Math.random()*(this.maxY-this.minY)+this.minY));
+			line(oldX, oldY, newX, newY);
+			oldX = newX;
+			oldY = newY;
+		} else {
+			drawing = false;
+		}
 	}
 }
