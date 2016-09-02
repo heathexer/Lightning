@@ -1,4 +1,4 @@
-int length = 20;
+int length = 10;
 int variance = 5;
 boolean drawing;
 
@@ -20,8 +20,6 @@ void setup() {
 void draw() {
 	if(drawing) {
 		lightning();
-	} else {
-		background(255);
 	}
 }
 
@@ -37,6 +35,7 @@ void lightning() {
 }
 
 void mousePressed() {
+	background(255);
 	eastBolt.update();
 	westBolt.update();
 	northBolt.update();
@@ -75,8 +74,6 @@ class Bolt {
 			line(oldX, oldY, newX, newY);
 			oldX = newX;
 			oldY = newY;
-		} else {
-			drawing = false;
 		}
 	}
 }
