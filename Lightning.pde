@@ -12,7 +12,7 @@ Bolt southWestBolt = new Bolt(-length, 0, 0, length);
 Bolt southEastBolt = new Bolt(0, length, 0, length);
 
 void setup() {
-  size(300,300);
+  size(800,500);
   background(255);
   stroke(0);
 }
@@ -68,7 +68,7 @@ class Bolt {
 		this.oldY = mouseY;
 	}
 	void draw() {
-		if(!(oldX<0) && !(oldX>300) && !(oldY<0) && !(oldY>300)) {
+		if(!(oldX<0) && !(oldX>width) && !(oldY<0) && !(oldY>height)) {
 			newX = oldX + (int)((Math.random()*(this.maxX-this.minX)+this.minX));
 			newY = oldY + (int)((Math.random()*(this.maxY-this.minY)+this.minY));
 			line(oldX, oldY, newX, newY);
