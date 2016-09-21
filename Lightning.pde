@@ -42,7 +42,7 @@ class Bolt {
     this.rotation = rotation;
   }
   void update() {
-    thickness += .1;
+    thickness += .15;
     strokeWeight((float)(thickness));
     newX = oldX+Math.random()*maxLength+1;
     newY = oldY+(Math.random()*2-1)*variance;
